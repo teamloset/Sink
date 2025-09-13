@@ -1,4 +1,4 @@
-import { LinkSchema } from '@@/schemas/link'
+import { LinkSchema, nanoid } from '@@/schemas/link'
 
 defineRouteMeta({
   openAPI: {
@@ -31,6 +31,11 @@ export default eventHandler(async (event) => {
 
   if (!caseSensitive) {
     link.slug = link.slug.toLowerCase()
+  }
+
+  // Asegurar que el enlace tenga un ID válido
+  if (!link.id) {
+    link.id = nanoid(10)
   }
 
   const { cloudflare } = event.context
