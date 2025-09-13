@@ -53,6 +53,7 @@
 - **Customizable Slug:** Support for personalized slugs and case sensitivity.
 - **🪄 AI Slug:** Leverage AI to generate slugs.
 - **Link Expiration:** Set expiration dates for your links.
+- **🌐 Multi-Domain Support:** Domain-specific links - same slug can point to different URLs per domain.
 
 ## 🪧 Demo
 
@@ -103,6 +104,8 @@ We currently support deployment to [Cloudflare Workers](./docs/deployment/worker
 - **[Despliegue Básico en Workers](./docs/deployment/workers.md)** - Guía rápida de referencia
 - **[Despliegue en Pages](./docs/deployment/pages.md)** - Alternativa usando Cloudflare Pages
 - **[Mejores Prácticas](./docs/deployment/best-practices.md)** - Consejos avanzados para producción
+- **[Enlaces Específicos por Dominio](./docs/domain-specific-links.md)** - Configuración de enlaces multi-dominio
+- **[Casos de Uso Multi-Dominio](./docs/multi-domain-use-cases.md)** - Ejemplos y estrategias para múltiples dominios
 
 ## ⚒️ Configuration
 

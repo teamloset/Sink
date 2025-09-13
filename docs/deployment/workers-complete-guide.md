@@ -150,6 +150,15 @@ Puedes agregar múltiples dominios personalizados:
 
 Cada uno funcionará independientemente.
 
+### 7.4 Enlaces Específicos por Dominio
+Sink soporta enlaces específicos por dominio, lo que significa que el mismo slug puede apuntar a diferentes URLs dependiendo del dominio:
+
+**Ejemplo:**
+- `link.tudominio.com/uno` → `uno.com`
+- `short.otrodominio.com/uno` → `dos.com`
+
+Esta funcionalidad está habilitada automáticamente cuando configuras múltiples dominios.
+
 ## ✅ Paso 8: Verificar el Despliegue
 
 ### 8.1 URLs de Acceso
@@ -216,7 +225,16 @@ Ahora tienes tu propio acortador de enlaces funcionando en Cloudflare Workers co
 - ✅ Almacenamiento en KV
 - ✅ Analytics en tiempo real
 - ✅ Dominio personalizado
+- ✅ **Enlaces específicos por dominio**
 - ✅ Escalabilidad automática
 - ✅ Sin costos de servidor
 
-¡Disfruta tu nuevo acortador de enlaces!
+### 🌐 Funcionalidad Multi-Dominio
+
+Con la configuración multi-dominio, puedes:
+- **Crear enlaces específicos por dominio**: `link.tudominio.com/uno` → `uno.com`
+- **Mismo slug, diferentes destinos**: `short.otrodominio.com/uno` → `dos.com`
+- **Analytics separados por dominio**
+- **Dashboard que muestra enlaces por dominio**
+
+¡Disfruta tu nuevo acortador de enlaces multi-dominio!

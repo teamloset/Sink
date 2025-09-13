@@ -14,6 +14,8 @@
 ## 🌐 Dominios Personalizados
 
 ### Configuración Multi-Dominio
+Sink soporta múltiples dominios personalizados con enlaces específicos por dominio:
+
 ```json
 // En wrangler.jsonc - ejemplo de múltiples dominios
 {
@@ -25,10 +27,20 @@
 }
 ```
 
+### Enlaces Específicos por Dominio
+Con la funcionalidad multi-dominio, puedes tener el mismo slug apuntando a diferentes URLs:
+
+**Ejemplo:**
+- `link.tudominio.com/uno` → `uno.com`
+- `short.otrodominio.com/uno` → `dos.com`
+- `s.tudominio.com/uno` → `tres.com`
+
 ### Mejores Prácticas de Dominios
 - Usa subdominios cortos y memorables: `s.tudominio.com`, `link.tudominio.com`
 - Evita caracteres especiales en subdominios
 - Considera usar dominios de nivel superior para casos de uso específicos
+- **Planifica la estrategia de slugs**: Decide si quieres slugs globales o específicos por dominio
+- **Documenta tus dominios**: Mantén un registro de qué dominio se usa para qué propósito
 
 ## 📊 Analytics y Monitoreo
 
@@ -42,6 +54,8 @@
 - Clicks por enlace
 - Ubicaciones geográficas de los usuarios
 - Dispositivos y navegadores más utilizados
+- **Métricas por dominio**: Analiza el rendimiento de cada dominio por separado
+- **Distribución de tráfico**: Qué dominios generan más clicks
 
 ## 🚀 Optimización de Rendimiento
 
@@ -188,5 +202,14 @@ cat wrangler.jsonc | grep -A 3 kv_namespaces
 3. **Documenta todo**: Mantén notas de configuración y cambios
 4. **Prueba regularmente**: Haz tests de funcionalidad periódicamente
 5. **Mantén actualizado**: Actualiza dependencias y configuración regularmente
+6. **Aprovecha el multi-dominio**: Usa diferentes dominios para diferentes propósitos
+7. **Planifica tu estrategia de slugs**: Decide si quieres enlaces globales o específicos por dominio
 
-¡Con estas mejores prácticas tendrás un despliegue robusto y escalable de Sink!
+### 🌐 Casos de Uso para Multi-Dominio
+
+- **Branding**: `link.empresa.com` para enlaces corporativos
+- **Marketing**: `short.campana.com` para campañas específicas
+- **Personal**: `s.miweb.com` para enlaces personales
+- **Testing**: `test.dominio.com` para enlaces de prueba
+
+¡Con estas mejores prácticas tendrás un despliegue robusto y escalable de Sink con soporte multi-dominio!
