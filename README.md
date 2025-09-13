@@ -97,6 +97,13 @@ We welcome your contributions and PRs.
 
 We currently support deployment to [Cloudflare Workers](./docs/deployment/workers.md) (recommended) and [Cloudflare Pages](./docs/deployment/pages.md).
 
+### 📖 Guías de Despliegue Detalladas
+
+- **[Guía Completa de Cloudflare Workers](./docs/deployment/workers-complete-guide.md)** - Guía paso a paso completa con configuración de dominios personalizados
+- **[Despliegue Básico en Workers](./docs/deployment/workers.md)** - Guía rápida de referencia
+- **[Despliegue en Pages](./docs/deployment/pages.md)** - Alternativa usando Cloudflare Pages
+- **[Mejores Prácticas](./docs/deployment/best-practices.md)** - Consejos avanzados para producción
+
 ## ⚒️ Configuration
 
 [Configuration Docs](./docs/configuration.md)
