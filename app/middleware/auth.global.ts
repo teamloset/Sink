@@ -1,9 +1,14 @@
+import { getAuthToken, initAuthSync } from '~/utils/auth'
+
 export default defineNuxtRouteMiddleware(async (to) => {
   if (import.meta.server)
     return
 
+  // Inicializar sincronización de autenticación
+  initAuthSync()
+
   if (to.path.startsWith('/dashboard') && to.path !== '/dashboard/login') {
-    if (!window.localStorage.getItem('SinkSiteToken'))
+    if (!getAuthToken())
       return navigateTo('/dashboard/login')
   }
 

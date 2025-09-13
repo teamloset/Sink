@@ -19,9 +19,11 @@ const loginFieldConfig = {
 
 const { previewMode } = useRuntimeConfig().public
 
+import { setAuthToken } from '~/utils/auth'
+
 async function onSubmit(form) {
   try {
-    localStorage.setItem('SinkSiteToken', form.token)
+    setAuthToken(form.token)
     await useAPI('/api/verify')
     navigateTo('/dashboard')
   }
