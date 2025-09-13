@@ -149,11 +149,17 @@ export function useAccessLog(event: H3Event) {
   }
 
   if (process.env.NODE_ENV === 'production') {
-    return hubAnalytics().put({
-      indexes: [link.id], // only one index
-      blobs: logs2blobs(accessLogs),
-      doubles: logs2doubles(accessLogs),
-    })
+    try {
+      return hubAnalytics().put({
+        indexes: [link.id], // only one index
+        blobs: logs2blobs(accessLogs),
+        doubles: logs2doubles(accessLogs),
+      })
+    }
+    catch (error) {
+      console.error('Failed to write to Analytics Engine:', error)
+      return Promise.resolve()
+    }
   }
   else {
     console.log('access logs:', accessLogs, logs2blobs(accessLogs), logs2doubles(accessLogs), { ...blobs2logs(logs2blobs(accessLogs)), ...doubles2logs(logs2doubles(accessLogs)) })
