@@ -2,6 +2,7 @@ interface Link {
   slug: string
   url: string
   comment?: string
+  domain?: string
 }
 
 export default eventHandler(async (event) => {

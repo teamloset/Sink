@@ -13,7 +13,6 @@ export default eventHandler(async (event) => {
 
   if (slug && !reserveSlug.includes(slug) && slugRegex.test(slug) && cloudflare) {
     const { KV } = cloudflare.env
-    const host = getRequestHost(event) // Obtener el dominio actual
 
     let link: z.infer<typeof LinkSchema> | null = null
 
@@ -21,24 +20,12 @@ export default eventHandler(async (event) => {
       await KV.get(`link:${key}`, { type: 'json', cacheTtl: linkCacheTtl })
 
     const lowerCaseSlug = slug.toLowerCase()
-    
-    // Buscar enlace específico por dominio
-    const domainSpecificKey = `${host}:${caseSensitive ? slug : lowerCaseSlug}`
-    link = await getLink(domainSpecificKey)
+    link = await getLink(caseSensitive ? slug : lowerCaseSlug)
 
-    // Fallback: buscar enlace global (sin dominio específico)
-    if (!link) {
-      link = await getLink(caseSensitive ? slug : lowerCaseSlug)
-    }
-
-    // Fallback adicional para caseSensitive
+    // fallback to original slug if caseSensitive is false and the slug is not found
     if (!caseSensitive && !link && lowerCaseSlug !== slug) {
-      const domainSpecificKeyOriginal = `${host}:${slug}`
-      link = await getLink(domainSpecificKeyOriginal)
-      
-      if (!link) {
-        link = await getLink(slug)
-      }
+      console.log('original slug fallback:', `slug:${slug} lowerCaseSlug:${lowerCaseSlug}`)
+      link = await getLink(slug)
     }
 
     if (link) {

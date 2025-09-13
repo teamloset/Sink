@@ -7,15 +7,13 @@ interface Link {
 export default eventHandler(async (event) => {
   const { cloudflare } = event.context
   const { KV } = cloudflare.env
-  const host = getRequestHost(event) // Obtener el dominio actual
   const list: Link[] = []
   let finalCursor: string | undefined
 
   try {
     while (true) {
-      // Buscar enlaces específicos del dominio
       const { keys, list_complete, cursor } = await KV.list({
-        prefix: `link:${host}:`,
+        prefix: `link:`,
         limit: 1000,
         cursor: finalCursor,
       })
@@ -27,20 +25,19 @@ export default eventHandler(async (event) => {
           try {
             if (key.metadata?.url) {
               list.push({
-                slug: key.name.replace(`link:${host}:`, ''),
+                slug: key.name.replace('link:', ''),
                 url: key.metadata.url,
                 comment: key.metadata.comment,
-                domain: key.metadata.domain,
               })
             }
             else {
+              // Forward compatible with links without metadata
               const { metadata, value: link } = await KV.getWithMetadata(key.name, { type: 'json' })
               if (link) {
                 list.push({
-                  slug: key.name.replace(`link:${host}:`, ''),
+                  slug: key.name.replace('link:', ''),
                   url: link.url,
                   comment: link.comment,
-                  domain: metadata?.domain || host,
                 })
                 await KV.put(key.name, JSON.stringify(link), {
                   expiration: metadata?.expiration,
@@ -48,7 +45,6 @@ export default eventHandler(async (event) => {
                     ...metadata,
                     url: link.url,
                     comment: link.comment,
-                    domain: host,
                   },
                 })
               }
@@ -56,7 +52,7 @@ export default eventHandler(async (event) => {
           }
           catch (err) {
             console.error(`Error processing key ${key.name}:`, err)
-            continue
+            continue // Skip this key and continue with the next one
           }
         }
       }

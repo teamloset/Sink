@@ -1,29 +1,5 @@
 import { LinkSchema } from '@@/schemas/link'
 
-defineRouteMeta({
-  openAPI: {
-    description: 'Create a new short link',
-    requestBody: {
-      required: true,
-      content: {
-        'application/json': {
-          // Need: https://github.com/nitrojs/nitro/issues/2974
-          schema: {
-            type: 'object',
-            required: ['url'],
-            properties: {
-              url: {
-                type: 'string',
-                description: 'The URL to shorten',
-              },
-            },
-          },
-        },
-      },
-    },
-  },
-})
-
 export default eventHandler(async (event) => {
   const link = await readValidatedBody(event, LinkSchema.parse)
   const { caseSensitive } = useRuntimeConfig(event)
