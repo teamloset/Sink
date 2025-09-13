@@ -64,7 +64,7 @@ function copyLink() {
         <div class="flex-1 overflow-hidden">
           <div class="flex items-center">
             <div class="font-bold leading-5 truncate text-md">
-              {{ host }}/{{ link.slug }}
+              {{ link.domain || host }}/{{ link.slug }}
             </div>
 
             <CopyCheck
@@ -79,20 +79,25 @@ function copyLink() {
             />
           </div>
 
-          <TooltipProvider>
-            <Tooltip>
-              <TooltipTrigger as-child>
-                <p class="text-sm truncate">
-                  {{ link.comment || link.title || link.description }}
-                </p>
-              </TooltipTrigger>
-              <TooltipContent>
-                <p class="max-w-[90svw] break-all">
-                  {{ link.comment || link.title || link.description }}
-                </p>
-              </TooltipContent>
-            </Tooltip>
-          </TooltipProvider>
+          <div class="flex items-center gap-2">
+            <Badge v-if="link.domain && link.domain !== host" variant="outline" class="text-xs">
+              {{ link.domain }}
+            </Badge>
+            <TooltipProvider>
+              <Tooltip>
+                <TooltipTrigger as-child>
+                  <p class="text-sm truncate">
+                    {{ link.comment || link.title || link.description }}
+                  </p>
+                </TooltipTrigger>
+                <TooltipContent>
+                  <p class="max-w-[90svw] break-all">
+                    {{ link.comment || link.title || link.description }}
+                  </p>
+                </TooltipContent>
+              </Tooltip>
+            </TooltipProvider>
+          </div>
         </div>
 
         <a

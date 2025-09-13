@@ -9,20 +9,32 @@ let listComplete = false
 let listError = false
 
 const sortBy = ref('az')
+const selectedDomain = ref('')
+const domainFilter = ref(null)
 
 const displayedLinks = computed(() => {
-  const sorted = [...links.value]
+  let filtered = [...links.value]
+  
+  // Filtrar por dominio si está seleccionado
+  if (selectedDomain.value) {
+    filtered = filtered.filter(link => {
+      const linkDomain = link.domain || location.host
+      return linkDomain === selectedDomain.value
+    })
+  }
+  
+  // Ordenar
   switch (sortBy.value) {
     case 'newest':
-      return sorted.sort((a, b) => b.createdAt - a.createdAt)
+      return filtered.sort((a, b) => b.createdAt - a.createdAt)
     case 'oldest':
-      return sorted.sort((a, b) => a.createdAt - b.createdAt)
+      return filtered.sort((a, b) => a.createdAt - b.createdAt)
     case 'az':
-      return sorted.sort((a, b) => a.slug.localeCompare(b.slug))
+      return filtered.sort((a, b) => a.slug.localeCompare(b.slug))
     case 'za':
-      return sorted.sort((a, b) => b.slug.localeCompare(a.slug))
+      return filtered.sort((a, b) => b.slug.localeCompare(a.slug))
     default:
-      return sorted
+      return filtered
   }
 })
 
@@ -38,6 +50,11 @@ async function getLinks() {
     cursor = data.cursor
     listComplete = data.list_complete
     listError = false
+    
+    // Actualizar dominios en el filtro
+    if (domainFilter.value) {
+      domainFilter.value.updateDomains(links.value)
+    }
   }
   catch (error) {
     console.error(error)
@@ -70,6 +87,11 @@ function updateLinkList(link, type) {
     links.value.unshift(link)
     sortBy.value = 'newest'
   }
+  
+  // Actualizar dominios en el filtro
+  if (domainFilter.value) {
+    domainFilter.value.updateDomains(links.value)
+  }
 }
 </script>
 
@@ -80,6 +102,7 @@ function updateLinkList(link, type) {
         <div class="flex items-center gap-2">
           <DashboardLinksEditor @update:link="updateLinkList" />
           <DashboardLinksSort v-model:sort-by="sortBy" />
+          <DashboardLinksDomainFilter v-model="selectedDomain" ref="domainFilter" />
         </div>
       </DashboardNav>
       <LazyDashboardLinksSearch />

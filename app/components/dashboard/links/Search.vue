@@ -78,17 +78,22 @@ onMounted(() => {
             <div class="flex gap-1 w-full">
               <div class="inline-flex overflow-hidden flex-1 gap-1 items-center">
                 <div class="text-sm font-medium">
-                  {{ link.item?.slug }}
+                  {{ link.item?.domain || location.host }}/{{ link.item?.slug }}
                 </div>
                 <div class="flex-1 text-xs truncate text-muted-foreground">
                   ({{ link.item?.url }})
                 </div>
               </div>
-              <Badge v-if="link.item?.comment" variant="secondary">
-                <div class="truncate max-w-24">
-                  {{ link.item?.comment }}
-                </div>
-              </Badge>
+              <div class="flex gap-1">
+                <Badge v-if="link.item?.domain && link.item?.domain !== location.host" variant="outline" class="text-xs">
+                  {{ link.item?.domain }}
+                </Badge>
+                <Badge v-if="link.item?.comment" variant="secondary">
+                  <div class="truncate max-w-24">
+                    {{ link.item?.comment }}
+                  </div>
+                </Badge>
+              </div>
             </div>
           </CommandItem>
         </CommandGroup>
