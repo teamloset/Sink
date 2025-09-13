@@ -160,7 +160,7 @@ cat wrangler.jsonc | grep -A 3 kv_namespaces
 
 ### Error: "Analytics Engine not configured"
 1. Verificar que Analytics Engine esté habilitado
-2. Confirmar que el dataset existe
+2. Confirma que el dataset existe
 3. Verificar binding en wrangler.jsonc
 
 ### Error: "Permission denied"
@@ -176,9 +176,9 @@ cat wrangler.jsonc | grep -A 3 kv_namespaces
 
 ## 📚 Recursos Adicionales
 
-- [Cloudflare Workers Documentation](https://developers.cloudflare.com/workers/)
-- [KV Documentation](https://developers.cloudflare.com/kv/)
-- [Analytics Engine Documentation](https://developers.cloudflare.com/analytics/)
+- [Documentación de Cloudflare Workers](https://developers.cloudflare.com/workers/)
+- [Documentación de KV](https://developers.cloudflare.com/kv/)
+- [Documentación de Analytics Engine](https://developers.cloudflare.com/analytics/)
 - [Wrangler CLI Documentation](https://developers.cloudflare.com/workers/wrangler/)
 
 ## 💡 Consejos Finales
